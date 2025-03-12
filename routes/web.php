@@ -21,7 +21,9 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/home', [HomeController::class, 'index'])
+    ->middleware(['auth', 'preventAdmin'])
+    ->name('home');
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
