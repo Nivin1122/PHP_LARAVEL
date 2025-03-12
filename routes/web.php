@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,9 +21,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/home', function () {
-    return view('pages.home');
-})->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
