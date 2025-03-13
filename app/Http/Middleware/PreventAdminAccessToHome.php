@@ -18,7 +18,7 @@ class PreventAdminAccessToHome
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // If the logged in user is an admin, redirect them to the admin dashboard
+
         if (Auth::check() && Auth::user()->role === 'admin') {
             return redirect()->route('admin.dashboard')
                 ->with('error', 'Admins are not allowed to access the user home page.');
