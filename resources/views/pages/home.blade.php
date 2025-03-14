@@ -44,6 +44,37 @@
             </div>
           @endforeach
         </div>
+        @if ($products->hasPages())
+    <div class="flex items-center justify-center mt-6">
+        {{-- Prev Button --}}
+        <a href="{{ $products->previousPageUrl() }}" 
+           class="px-3 py-1 border border-gray-300 rounded-l-md {{ !$products->onFirstPage() ? 'hover:bg-gray-50' : 'opacity-50 cursor-not-allowed' }}">
+            <span class="text-sm text-gray-700">Previous</span>
+        </a>
+
+        {{-- Page Numbers - Always Visible --}}
+        @foreach ($products->links()->elements[0] as $page => $url)
+            @if (is_string($page))
+                <span class="px-3 py-1 border-t border-b border-gray-300">
+                    <span class="text-sm text-gray-700">...</span>
+                </span>
+            @else
+                <a href="{{ $url }}" 
+                   class="px-3 py-1 border-t border-b border-gray-300 {{ $page == $products->currentPage() ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700 hover:bg-gray-50' }}">
+                    <span class="text-sm">{{ $page }}</span>
+                </a>
+            @endif
+        @endforeach
+
+        {{-- Next Button --}}
+        <a href="{{ $products->nextPageUrl() }}" 
+           class="px-3 py-1 border border-gray-300 rounded-r-md {{ $products->hasMorePages() ? 'hover:bg-gray-50' : 'opacity-50 cursor-not-allowed' }}">
+            <span class="text-sm text-gray-700">Next</span>
+        </a>
+    </div>
+@endif
+
+
       @else
         <p>No products found.</p>
       @endif
